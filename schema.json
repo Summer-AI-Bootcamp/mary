@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "process_bill_payment",
+  "description": "Validate a household bill and schedule payment via linked account.",
+  "type": "object",
+  "properties": {
+    "bill_type": {
+      "type": "string",
+      "enum": ["utility", "credit_card", "rent", "medical", "phone"],
+      "description": "Category of the bill."
+    },
+    "amount_due": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Amount to be paid in USD."
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Payment due date (YYYY-MM-DD)."
+    },
+    "pay_from_account": {
+      "type": "string",
+      "enum": ["checking", "savings", "credit"],
+      "description": "Account nickname to debit."
+    },
+    "vendor_name": {
+      "type": "string",
+      "description": "Name of the payee/vendor."
+    },
+    "confirm_pay": {
+      "type": "boolean",
+      "description": "Must be true to authorise real payment."
+    }
+  },
+  "required": [
+    "bill_type",
+    "amount_due",
+    "due_date",
+    "pay_from_account",
+    "vendor_name",
+    "confirm_pay"
+  ],
+  "examples": [
+    {
+      "bill_type": "utility",
+      "amount_due": 45.99,
+      "due_date": "2025-07-01",
+      "pay_from_account": "checking",
+      "vendor_name": "Denver Water",
+      "confirm_pay": true
+    }
+  ]
+}
